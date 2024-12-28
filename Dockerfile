@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp
+FROM dunglas/frankenphp:1-php8.3
 
 # production|development
 ARG PHP_INI_ENVIRONMENT=production
@@ -6,15 +6,30 @@ ARG USER=www-user
 
 RUN cp $PHP_INI_DIR/php.ini-${PHP_INI_ENVIRONMENT} $PHP_INI_DIR/php.ini
 
-RUN install-php-extensions \
-	pdo_mysql \
-	gd \
-	intl \
-	zip \
-	opcache \
-    bcmath \
-    sockets \
-    exif
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	acl \
+	file \
+	gettext \
+	git \
+	autoconf \
+    libssl-dev \
+    g++ \
+    make \
+    libpcre3-dev \
+    libicu-dev \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN set -eux; \
+	install-php-extensions \
+		@composer \
+		gd \
+		apcu \
+		intl \
+		zip \
+		opcache \
+		bcmath \
+		sockets \
+		exif
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 

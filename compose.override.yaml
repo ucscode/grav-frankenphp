@@ -2,7 +2,7 @@ services:
   php:
     # comment the following line in production, it allows to have nice human-readable logs in dev
     tty: true
-    # environment:
-    #   SERVER_NAME: :7000
+    environment:
+      SERVER_NAME: localhost
     # ports:
-    #   - "7000:7000"
+    #   - "7000:80"
