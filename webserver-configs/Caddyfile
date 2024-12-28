@@ -44,7 +44,7 @@
 	# Begin - Grav Security
 	@matches-restricted-folders {
 		# deny all direct access for these folders
-		path_regexp /(\.git|cache|bin|logs|backups?|tests|webserver-configs)/.*
+		path_regexp /\.?(git|cache|bin|logs|backups?|tests|webserver-configs|phan)/.*
 	}
 
 	@matches-core-scripts {
