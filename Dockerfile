@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:1-php8.3
+FROM dunglas/frankenphp:1.3.6-php8.4.2-bookworm
 
 # production|development
 ARG PHP_INI_ENVIRONMENT=production
@@ -17,6 +17,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     make \
     libpcre3-dev \
     libicu-dev \
+	jq \
+	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \

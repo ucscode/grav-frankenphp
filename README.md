@@ -6,46 +6,25 @@
 
 Grav is a **Fast**, **Simple**, and **Flexible**, file-based Web-platform.  There is **Zero** installation required.  Just extract the ZIP archive, and you are already up and running.  It follows similar principles to other flat-file CMS platforms, but has a different design philosophy than most. Grav comes with a powerful **Package Management System** to allow for simple installation and upgrading of plugins and themes, as well as simple updating of Grav itself.
 
-The underlying architecture of Grav is designed to use well-established and _best-in-class_ technologies to ensure that Grav is simple to use and easy to extend. Some of these key technologies include:
+For more information, see the official grav resources:
 
-* [Twig Templating](https://twig.symfony.com/): for powerful control of the user interface
-* [Markdown](https://en.wikipedia.org/wiki/Markdown): for easy content creation
-* [YAML](https://yaml.org): for simple configuration
-* [Parsedown](https://parsedown.org/): for fast Markdown and Markdown Extra support
-* [Doctrine Cache](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/caching.html): layer for performance
-* [Pimple Dependency Injection Container](https://github.com/silexphp/Pimple): for extensibility and maintainability
-* [Symfony Event Dispatcher](https://symfony.com/doc/current/components/event_dispatcher/introduction.html): for plugin event handling
-* [Symfony Console](https://symfony.com/doc/current/components/console/introduction.html): for CLI interface
-* [Gregwar Image Library](https://github.com/Gregwar/Image): for dynamic image manipulation
+- [Grav Github](https://github.com/getgrav/grav)
+- [Grav Learn](https://learn.getgrav.org/17)
+- [Grav Skeletons](https://getgrav.org/downloads/skeletons)
 
 # Requirements
 
 - PHP 7.3.6 or higher. Check the [required modules list](https://learn.getgrav.org/basics/requirements#php-requirements)
-- Check the [Apache](https://learn.getgrav.org/basics/requirements#apache-requirements) or [IIS](https://learn.getgrav.org/basics/requirements#iis-requirements) requirements
 
-# Documentation
+# Features
 
-The full documentation can be found from [learn.getgrav.org](https://learn.getgrav.org).
+- Runs on [docker](https://www.docker.com/)
+- Built on [frankenphp](https://frankenphp.dev/); an extension of [Caddy](https://caddyserver.com/)
+- Provides command for re-installing third-party dependencies on production
 
 # QuickStart
 
-These are the options to get Grav:
-
-### Downloading a Grav Package
-
-You can download a **ready-built** package from the [Downloads page on https://getgrav.org](https://getgrav.org/downloads)
-
-### With Composer
-
-You can create a new project with the latest **stable** Grav release with the following command:
-
-```
-$ composer create-project getgrav/grav ~/webroot/grav
-```
-
-### From GitHub
-
-1. Clone the Grav repository from [https://github.com/getgrav/grav]() to a folder in the webroot of your server, e.g. `~/webroot/grav`. Launch a **terminal** or **console** and navigate to the webroot folder:
+1. Clone the Grav repository from [https://github.com/ucscode/grav-caddy-frankenphp]() to a folder in the webroot of your server, e.g. `~/webroot/grav`. Launch a **terminal** or **console** and navigate to the webroot folder:
    ```
    $ cd ~/webroot
    $ git clone https://github.com/getgrav/grav.git

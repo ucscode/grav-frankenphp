@@ -1,0 +1,32 @@
+#!/usr/bin/bash
+
+JSON_FILE="gpm.json"
+
+# Check if gpm.json exists
+if [ ! -f "${JSON_FILE}" ]; then
+    echo "${JSON_FILE} not found!"
+    exit 1
+fi
+
+if ! command -v jq &> /dev/null; then
+    echo "jq command is not installed!"
+    exit 1
+fi
+
+# Read plugins and themes from dependencies.json
+plugins=$(jq -r '.plugins[]' "${JSON_FILE}")
+themes=$(jq -r '.themes[]' "${JSON_FILE}")
+
+# Install plugins
+for plugin in $plugins; do
+    echo "Installing plugin: $plugin"
+    bin/gpm install $plugin --no-interaction
+done
+
+# Install themes
+for theme in $themes; do
+    echo "Installing theme: $theme"
+    bin/gpm install $theme --no-interaction
+done
+
+echo "All dependencies installed!"

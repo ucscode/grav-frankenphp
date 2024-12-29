@@ -2,18 +2,21 @@ services:
   php:
     build: .
     container_name: grav-frankenphp
-    restart: always
+    restart: unless-stopped
     ports:
       - "80:80" # HTTP
       - "443:443" # HTTPS
       - "443:443/udp" # HTTP/3
     volumes:
-      - ./:/app
-      - ./webserver-configs/Caddyfile:/etc/caddy/Caddyfile
+      - ./grav:/app
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./gpm.json:/app/gpm.json
+      - ./gpm.run:/app/gpm.run
       - caddy_data:/data
       - caddy_config:/config
     environment:
-      SERVER_NAME: ucscode.com
+      # e.g domain.com, sub.domain.com
+      SERVER_NAME: localhost
 
 # Volumes needed for Caddy certificates and configuration
 volumes:
