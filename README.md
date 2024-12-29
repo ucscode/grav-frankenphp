@@ -26,22 +26,22 @@ For more information, see the official grav resources:
 
 1. Clone the Grav-FrankenPHP repository from [https://github.com/ucscode/grav-frankenphp]() to the webroot of your server.
    ```
-   $ git clone https://github.com/ucscode/grav-frankenphp.git
+   git clone https://github.com/ucscode/grav-frankenphp.git
    ```
 
 3. Inside the grav-frankenphp directory, clone the official grav repository
    ```
-   $ git clone -b master https://github.com/getgrav/grav.git
+   git clone -b master https://github.com/getgrav/grav.git
    ```
 
 2. Inside the grav-frankenphp directory, build and start the docker container
    ```
-   $ docker compose up --build --no-cache
+   docker compose up --build --no-cache
    ```
 
 4. Install the default grav dependencies (**plugin** and **theme**)
    ```
-   $ docker compose exec php bin/grav install
+   docker compose exec php bin/grav install
    ```
 
 # Grav Container Volume
@@ -75,7 +75,7 @@ To accomplish this, you should edit the `gpm.json` file and define all of your p
 To install them, you can run the following command:
 
 ```
-$ docker compose exec php ./gpm.run
+docker compose exec php ./gpm.run
 ```
 
 # References
