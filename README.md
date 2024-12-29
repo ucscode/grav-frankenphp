@@ -36,7 +36,7 @@ For more information, see the official grav resources:
 
 2. Inside the grav-frankenphp directory, build and start the docker container
    ```
-   docker compose up --build --no-cache
+   docker compose up -d
    ```
 
 4. Install the default grav dependencies (**plugin** and **theme**)
