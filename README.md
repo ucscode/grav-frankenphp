@@ -1,4 +1,4 @@
-# ![](https://avatars1.githubusercontent.com/u/8237355?v=2&s=50) Grav
+# ![](https://avatars1.githubusercontent.com/u/8237355?v=2&s=50) Grav &plus; FrankenPHP
 
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
 [![Discord](https://img.shields.io/discord/501836936584101899.svg?logo=discord&colorB=728ADA&label=Discord%20Chat)](https://chat.getgrav.org)
@@ -24,112 +24,61 @@ For more information, see the official grav resources:
 
 # QuickStart
 
-1. Clone the Grav repository from [https://github.com/ucscode/grav-caddy-frankenphp]() to a folder in the webroot of your server, e.g. `~/webroot/grav`. Launch a **terminal** or **console** and navigate to the webroot folder:
+1. Clone the Grav-FrankenPHP repository from [https://github.com/ucscode/grav-frankenphp]() to the webroot of your server.
    ```
-   $ cd ~/webroot
-   $ git clone https://github.com/getgrav/grav.git
-   ```
-
-2. Install the **plugin** and **theme dependencies** by using the [Grav CLI application](https://learn.getgrav.org/advanced/grav-cli) `bin/grav`:
-   ```
-   $ cd ~/webroot/grav
-   $ bin/grav install
+   $ git clone https://github.com/ucscode/grav-frankenphp.git
    ```
 
-Check out the [install procedures](https://learn.getgrav.org/basics/installation) for more information.
+3. Inside the grav-frankenphp directory, clone the official grav repository
+   ```
+   $ git clone -b master https://github.com/getgrav/grav.git
+   ```
 
-# Adding Functionality
+2. Inside the grav-frankenphp directory, build and start the docker container
+   ```
+   $ docker compose up --build --no-cache
+   ```
 
-You can download [plugins](https://getgrav.org/downloads/plugins) or [themes](https://getgrav.org/downloads/themes) manually from the appropriate tab on the [Downloads page on https://getgrav.org](https://getgrav.org/downloads), but the preferred solution is to use the [Grav Package Manager](https://learn.getgrav.org/advanced/grav-gpm) or `GPM`:
+4. Install the default grav dependencies (**plugin** and **theme**)
+   ```
+   $ docker compose exec php bin/grav install
+   ```
 
-```
-$ bin/gpm index
-```
+# Grav Container Volume
 
-This will display all the available plugins and then you can install one or more with:
+If you cloned the grav repository in a different directory other than `grav/`, you have to mount it properly into the container by editing the `compose.yaml` file
 
-```
-$ bin/gpm install <plugin/theme>
-```
-
-# Updating
-
-To update Grav you should use the [Grav Package Manager](https://learn.getgrav.org/advanced/grav-gpm) or `GPM`:
-
-```
-$ bin/gpm selfupgrade
-```
-
-To update plugins and themes:
-
-```
-$ bin/gpm update
+```yaml
+services:
+   php:
+      # some other configurations ...
+      volumes:
+         - ./your-grav-directory:/app
 ```
 
-## Upgrading from older version
+# Accessing Grav on localhost
 
-* [Upgrading to Grav 1.7](https://learn.getgrav.org/16/advanced/grav-development/grav-17-upgrade-guide)
-* [Upgrading to Grav 1.6](https://learn.getgrav.org/16/advanced/grav-development/grav-16-upgrade-guide)
-* [Upgrading from Grav <1.6](https://learn.getgrav.org/16/advanced/grav-development/grav-15-upgrade-guide)
+If you are developing locally, you should keep in mind that the host maps port `:7000` to the container.\
+You can easily update the port from `compose.override.yaml`.
 
-# Contributing
-We appreciate any contribution to Grav, whether it is related to bugs, grammar, or simply a suggestion or improvement! Please refer to the [Contributing guide](CONTRIBUTING.md) for more guidance on this topic.
+- Enter the Url below to access grav on localhost
 
-## Security issues
-If you discover a possible security issue related to Grav or one of its plugins, please email the core team at contact@getgrav.org and we'll address it as soon as possible.
+```
+http://localhost:7000
+```
 
-# Getting Started
+# Install Custom Dependencies
 
-* [What is Grav?](https://learn.getgrav.org/basics/what-is-grav)
-* [Install](https://learn.getgrav.org/basics/installation) Grav in few seconds
-* Understand the [Configuration](https://learn.getgrav.org/basics/grav-configuration)
-* Take a peek at our available free [Skeletons](https://getgrav.org/downloads/skeletons)
-* If you have questions, jump on our [Discord Chat Server](https://chat.getgrav.org)!
-* Have fun!
+When you commit your works to Git, it is not recommended to include third party libraries like themes and plugins.\
+You only need to commit references that allow the third party code to be pulled down as needed at deploy time.\
+To accomplish this, you should edit the `gpm.json` file and define all of your project's themes and plugins.\
+To install them, you can run the following command:
 
-# Exploring More
+```
+$ docker compose exec php ./gpm.run
+```
 
-* Have a look at our [Basic Tutorial](https://learn.getgrav.org/basics/basic-tutorial)
-* Dive into more [advanced](https://learn.getgrav.org/advanced) functions
-* Learn about the [Grav CLI](https://learn.getgrav.org/cli-console/grav-cli)
-* Review examples in the [Grav Cookbook](https://learn.getgrav.org/cookbook)
-* More [Awesome Grav Stuff](https://github.com/getgrav/awesome-grav)
+# References
 
-# Backers
-Support Grav with a monthly donation to help us continue development. [[Become a backer](https://opencollective.com/grav/contribute)]
+For other grav specific information, see the official grav [documentation](https://learn.getgrav.org/)
 
-<img src="https://opencollective.com/grav/tiers/backers.svg?avatarHeight=36&width=600" />
-
-
-# Supporters
-Support Grav with a monthly donation to help us continue development. [[Become a supporter](https://opencollective.com/grav/contribute)]
-
-<img src="https://opencollective.com/grav/tiers/supporters.svg?avatarHeight=36&width=600" />
-
-
-# Sponsors
-Support Grav with a yearly donation to help us continue development. [[Become a sponsor](https://opencollective.com/grav/contribute)]
-
-<img src="https://opencollective.com/grav/tiers/sponsors.svg?avatarHeight=36&width=600" />
-
-# License
-
-See [LICENSE](LICENSE.txt)
-
-
-[gitflow-model]: http://nvie.com/posts/a-successful-git-branching-model/
-[gitflow-extensions]: https://github.com/nvie/gitflow
-
-# Running Tests
-
-First install the dev dependencies by running `composer install` from the Grav root.
-
-Then `composer test` will run the Unit Tests, which should be always executed successfully on any site.
-Windows users should use the `composer test-windows` command.
-You can also run a single unit test file, e.g. `composer test tests/unit/Grav/Common/AssetsTest.php`
-
-To run phpstan tests, you should run:
-
-* `composer phpstan` for global tests
-* `composer phpstan-framework` for more strict tests
-* `composer phpstan-plugins` to test all installed plugins

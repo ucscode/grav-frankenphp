@@ -58,14 +58,14 @@
 	}
 
 	@matches-restricted-root-files {
-		# deny access to all root files except few
+		# deny access to all root files except the ones declared
 		# path_regexp /(LICENSE\.txt|compose.*|nginx\.conf|web\.config|htaccess\.txt|\.htaccess)
 
 		# If the request is pointing to a file
 		file {path}
 		# and the file is in the root folder 
 		path_regexp ^/[^/]+$
-		# but does not match the listed accessible files [index.php, robot.txt]
+		# but does not match the list of accessible files [index.php, robot.txt]
 		not path_regexp /(index.php|robots.txt)
 	}
 

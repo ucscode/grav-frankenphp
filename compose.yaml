@@ -8,8 +8,10 @@ services:
       - "443:443" # HTTPS
       - "443:443/udp" # HTTP/3
     volumes:
+      # If you installed grav into a directory that is not named "grav"
+      # Then change "./grav:/app" to "./your-grav-directory-name:/app" 
       - ./grav:/app
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./gpm.json:/app/gpm.json
       - ./gpm.run:/app/gpm.run
       - caddy_data:/data
