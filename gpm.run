@@ -2,9 +2,9 @@
 
 JSON_FILE="gpm.json"
 
-# Check if gpm.json exists
+# Check if gpm.json file exists
 if [ ! -f "${JSON_FILE}" ]; then
-    echo "${JSON_FILE} not found!"
+    echo "${JSON_FILE} file not found!"
     exit 1
 fi
 
@@ -13,7 +13,7 @@ if ! command -v jq &> /dev/null; then
     exit 1
 fi
 
-# Read plugins and themes from dependencies.json
+# Read plugins and themes from gpm.json
 plugins=$(jq -r '.plugins[]' "${JSON_FILE}")
 themes=$(jq -r '.themes[]' "${JSON_FILE}")
 
