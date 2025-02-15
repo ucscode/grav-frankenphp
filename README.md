@@ -75,7 +75,7 @@ To accomplish this, you should edit the `gpm.json` file and define all of your p
 To install them, you can run the following command:
 
 ```
-docker compose exec php ./gpm.run
+docker compose exec php ./build/gpm.run
 ```
 
 # References

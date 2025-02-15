@@ -11,9 +11,8 @@ services:
       # If you installed grav into a directory that is not named "grav"
       # Then change "./grav:/app" to "./your-grav-directory-name:/app" 
       - ./grav:/app
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./gpm.json:/app/gpm.json
-      - ./gpm.run:/app/gpm.run
+      - ./caddy:/etc/caddy
+      - ./build:/app/build
       - caddy_data:/data
       - caddy_config:/config
     environment:
