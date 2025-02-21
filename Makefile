@@ -19,7 +19,8 @@ ps:
 
 install:
 	docker compose exec php bin/grav install
-	docker compose exec php ./build/gpm.run
+	docker compose exec php bin/gpm install admin --no-interaction
+	docker compose exec php bin/gpm install learn2-git-sync --no-interaction
 
 bash:
 	docker compose exec php bash

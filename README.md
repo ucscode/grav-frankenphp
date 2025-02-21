@@ -71,11 +71,22 @@ http://localhost:7000
 
 When you commit your works to Git, it is not recommended to include third party libraries like themes and plugins.\
 You only need to commit references that allow the third party code to be pulled down as needed at deploy time.\
-To accomplish this, you should edit the `gpm.json` file and define all of your project's themes and plugins.\
-To install them, you can run the following command:
+To accomplish this, you should take advantage of the `Makefile` file. If you don't have make, install it
 
 ```
-docker compose exec php ./build/gpm.run
+sudo apt install make
+```
+
+Define all of your project's themes and plugins in the `install` section and run the command
+
+```
+make install
+```
+
+If you are on production, use the `prod.mk` instead
+
+```
+make -f prod.mk install
 ```
 
 # References

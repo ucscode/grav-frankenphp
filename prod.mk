@@ -23,7 +23,7 @@ ps:
 
 install:
 	$(DOCKER_COMPOSE_PROD) exec php bin/grav install
-	$(DOCKER_COMPOSE_PROD) exec php ./build/gpm.run
+	$(DOCKER_COMPOSE_PROD) exec php bin/gpm install learn2-git-sync --no-interaction
 
 bash:
 	$(DOCKER_COMPOSE_PROD) exec php bash

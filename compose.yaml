@@ -12,7 +12,6 @@ services:
       # Then change "./grav:/app" to "./your-grav-directory-name:/app" 
       - ./grav:/app
       - ./caddy:/etc/caddy
-      - ./build:/app/build
       - caddy_data:/data
       - caddy_config:/config
     environment:
