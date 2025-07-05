@@ -6,6 +6,8 @@
 
 Grav is a **Fast**, **Simple**, and **Flexible**, file-based Web-platform.  There is **Zero** installation required.  Just extract the ZIP archive, and you are already up and running.  It follows similar principles to other flat-file CMS platforms, but has a different design philosophy than most. Grav comes with a powerful **Package Management System** to allow for simple installation and upgrading of plugins and themes, as well as simple updating of Grav itself.
 
+![Grav Dashboard](https://learn.getgrav.org/user/pages/05.admin-panel/01.introduction/admin-dashboard.png)
+
 For more information, see the official grav resources:
 
 - [Grav Github](https://github.com/getgrav/grav)
@@ -18,78 +20,85 @@ For more information, see the official grav resources:
 
 # Features
 
-- Runs on [docker](https://www.docker.com/)
-- Built on [frankenphp](https://frankenphp.dev/); an extension of [Caddy](https://caddyserver.com/)
-- Provides command for re-installing third-party dependencies on production
+- Runs via [Docker](https://www.docker.com/)
+- Powered by [FrankenPHP](https://frankenphp.dev/) — an advanced PHP app server built on [Caddy](https://caddyserver.com/)
+- Provides support for installing custom plugin and theme dependencies
+- Command-line workflow for development and production environments
 
 # QuickStart
 
-1. Clone the Grav-FrankenPHP repository from [https://github.com/ucscode/grav-frankenphp]() to the webroot of your server.
+1. Clone the Grav-FrankenPHP repository
    ```
    git clone https://github.com/ucscode/grav-frankenphp.git
+   cd grav-frankenphp
    ```
 
-3. Inside the grav-frankenphp directory, clone the official grav repository
+2. Clone the official Grav CMS into the working directory:
    ```
    git clone -b master https://github.com/getgrav/grav.git
    ```
 
-2. Inside the grav-frankenphp directory, build and start the docker container
+3. For custom configuration, copy `.env.sample` to `.env`
+   ```
+   cp .env.sample .env
+   ```
+
+4. Build and start the docker container
    ```
    docker compose up -d
    ```
 
-4. Install the default grav dependencies (**plugin** and **theme**)
+5. Install the default grav dependencies (**plugin** and **theme**)
    ```
    docker compose exec php bin/grav install
    ```
 
-# Grav Container Volume
-
-If you cloned the grav repository in a different directory other than `grav/`, you have to mount it properly into the container by editing the `compose.yaml` file
-
-```yaml
-services:
-   php:
-      # some other configurations ...
-      volumes:
-         - ./your-grav-directory:/app
-```
-
 # Accessing Grav on localhost
 
-If you are developing locally, you should keep in mind that the host maps port `:7000` to the container.\
-You can easily update the port from `compose.override.yaml`.
+Set your desired port in `.env`. By default, the local HTTP port is 7000.
 
-- Enter the Url below to access grav on localhost
+Then open Grav in your browser:
 
 ```
 http://localhost:7000
 ```
 
-# Install Custom Dependencies
+Install Custom Plugins and Themes
 
-When you commit your works to Git, it is not recommended to include third party libraries like themes and plugins.\
-You only need to commit references that allow the third party code to be pulled down as needed at deploy time.\
-To accomplish this, you should take advantage of the `Makefile` file. If you don't have make, install it
+You can install additional Grav dependencies (plugins, themes) automatically using a dependency list.
 
-```
-sudo apt install make
-```
+### Step 1: Add dependencies
 
-Define all of your project's themes and plugins in the `install` section and run the command
+Edit the file `gpm-dependencies.txt` and list your plugins/themes — one per line:
 
 ```
-make install
+learn2-git-sync
+admin
+login
+form
 ```
 
-If you are on production, use the `prod.mk` instead
+Lines starting with `#` will be ignored as comments.
 
+### Step 2: Run the installer
+
+Use `make` to install all listed dependencies:
+
+```bash
+make install-deps
 ```
-make -f prod.mk install
-```
 
-# References
+> This will run `bin/gpm install <plugin>` for each item in the list using the PHP container.
 
-For other grav specific information, see the official grav [documentation](https://learn.getgrav.org/)
+---
 
+> **Production Notes:**
+> For production, avoid using `docker-compose.override.yaml`. Instead, define only the necessary services and configurations suitable for your deployment environment.
+
+---
+
+## References
+
+* [Grav GitHub Repository](https://github.com/getgrav/grav)
+* [Grav Documentation](https://learn.getgrav.org/17)
+* [Grav Skeletons](https://getgrav.org/downloads/skeletons)

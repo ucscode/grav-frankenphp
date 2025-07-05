@@ -1,15 +1,16 @@
-init:
-	@make down
-	docker compose build --pull --no-cache
-	@make up
-	@make install
+GPM_FILE=gpm-dependencies.txt
+DOCKER_EXEC=docker compose exec
 
-up:
-	@make down
-	docker compose up -d
+.PHONY: install install-deps
+
+build:
+	docker compose build --pull --no-cache
 
 down:
 	docker compose down --remove-orphans
+
+up: down
+	docker compose up -d
 
 logs:
 	docker compose logs
@@ -18,9 +19,21 @@ ps:
 	docker compose ps
 
 install:
-	docker compose exec php bin/grav install
-	docker compose exec php bin/gpm install admin --no-interaction
-	docker compose exec php bin/gpm install learn2-git-sync --no-interaction
+	$(DOCKER_EXEC) php bin/grav install
+	@$(MAKE) install-deps
 
 bash:
-	docker compose exec php bash
+	$(DOCKER_EXEC) php bash
+
+install-deps:
+	@echo "Installing dependencies from $(GPM_FILE)..."
+	@while IFS= read -r dependency; do \
+		if [ -n "$$dependency" ] && [ "$$(printf '%s' "$$dependency" | cut -c1)" != "#" ]; then \
+			echo "Installing $$dependency..."; \
+			$(DOCKER_EXEC) -T php bin/gpm install "$$dependency" --no-interaction; \
+		fi \
+	done < $(GPM_FILE)
+	@echo "All dependencies installed."
+
+
+init: down build up install install-deps

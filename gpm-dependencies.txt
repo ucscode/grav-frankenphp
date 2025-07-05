@@ -1,0 +1,9 @@
+# This file is used by `make install-deps` to install
+# plugins and themes using Grav's GPM (Grav Package Manager).
+# Lines beginning with '#' are treated as comments and ignored.
+# To install a plugin or theme, list its slug on a new line.
+# =====================================================
+
+admin
+form
+login
