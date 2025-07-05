@@ -63,7 +63,7 @@ Then open Grav in your browser:
 http://localhost:7000
 ```
 
-Install Custom Plugins and Themes
+# Install Custom Plugins and Themes
 
 You can install additional Grav dependencies (plugins, themes) automatically using a dependency list.
 
