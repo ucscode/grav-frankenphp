@@ -92,8 +92,9 @@ make install-deps
 
 ---
 
-> **Production Notes:**
-> For production, avoid using `docker-compose.override.yaml`. Instead, define only the necessary services and configurations suitable for your deployment environment.
+> **Production Notes:** \
+> For production, avoid using `compose.override.yaml`. Instead, define only the necessary services and configurations suitable for your deployment environment. \
+> **Example:** `docker compose -f compose.yaml -f compose.prod.yaml up` 
 
 ---
 
