@@ -71,7 +71,7 @@ You can install all Grav dependencies listed in the config file using either `ma
 
 #### Option 1: Using `make`
 
-Run the following command to install all dependencies listed in `gmp-dependencies.conf`:
+Run the following command to install all dependencies listed in `gpm-dependencies.conf`:
 
 ```bash
 make install-deps
@@ -86,24 +86,24 @@ This internally calls `bin/gpm install <plugin>` for each valid entry.
 You can also run the installer directly, with optional support for custom config files:
 
 ```bash
-./gmp-install
+./gpm-install
 ```
 
-This installs dependencies from the default `gmp-dependencies.conf` file in the project root.
+This installs dependencies from the default `gpm-dependencies.conf` file in the project root.
 
 To use a different file:
 
 ```bash
-./gmp-install path/to/your-deps-file
+./gpm-install path/to/your-deps-file
 ```
 
-This allows you to maintain different sets of plugins for various environments (e.g., `gmp-deps.dev`, `gmp-deps.prod`, etc.).
+This allows you to maintain different sets of plugins for various environments (e.g., `gpm-deps.dev`, `gpm-deps.prod`, etc.).
 
 ---
 
 > Make sure the dependency file is properly formatted, with one plugin name per line and optional `#` comments.
 
-Example `gmp-dependencies`:
+Example `gpm-dependencies`:
 
 ```txt
 # Required GPM plugins

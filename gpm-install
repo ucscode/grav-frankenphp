@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default config file
-CONF_FILE="${1:-./gmp-dependencies.conf}"
+CONF_FILE="${1:-./gpm-dependencies.conf}"
 
 # Check if file exists
 if [ ! -f "$CONF_FILE" ]; then
