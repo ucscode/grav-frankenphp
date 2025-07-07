@@ -1,4 +1,4 @@
-GPM_FILE=gpm-dependencies.txt
+GPM_FILE ?= ./gmp-dependencies.conf
 DOCKER_EXEC=docker compose exec
 
 .PHONY: install install-deps
@@ -26,14 +26,7 @@ bash:
 	$(DOCKER_EXEC) php bash
 
 install-deps:
-	@echo "Installing dependencies from $(GPM_FILE)..."
-	@while IFS= read -r dependency; do \
-		if [ -n "$$dependency" ] && [ "$$(printf '%s' "$$dependency" | cut -c1)" != "#" ]; then \
-			echo "Installing $$dependency..."; \
-			$(DOCKER_EXEC) -T php bin/gpm install "$$dependency" --no-interaction; \
-		fi \
-	done < $(GPM_FILE)
-	@echo "All dependencies installed."
+	./gmp-install $(GPM_FILE)
 
 
 init: down build up install install-deps

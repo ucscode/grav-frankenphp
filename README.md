@@ -65,35 +65,58 @@ http://localhost:7000
 
 # Install Custom Plugins and Themes
 
-You can install additional Grav dependencies (plugins, themes) automatically using a dependency list.
+You can install all Grav dependencies listed in the config file using either `make` or a standalone script.
 
-### Step 1: Add dependencies
+---
 
-Edit the file `gpm-dependencies.txt` and list your plugins/themes — one per line:
+#### Option 1: Using `make`
 
-```
-learn2-git-sync
-admin
-login
-form
-```
-
-Lines starting with `#` will be ignored as comments.
-
-### Step 2: Run the installer
-
-Use `make` to install all listed dependencies:
+Run the following command to install all dependencies listed in `gmp-dependencies.conf`:
 
 ```bash
 make install-deps
 ```
 
-> This will run `bin/gpm install <plugin>` for each item in the list using the PHP container.
+This internally calls `bin/gpm install <plugin>` for each valid entry.
+
+---
+
+#### Option 2: Using the standalone script
+
+You can also run the installer directly, with optional support for custom config files:
+
+```bash
+./gmp-install
+```
+
+This installs dependencies from the default `gmp-dependencies.conf` file in the project root.
+
+To use a different file:
+
+```bash
+./gmp-install path/to/your-deps-file
+```
+
+This allows you to maintain different sets of plugins for various environments (e.g., `gmp-deps.dev`, `gmp-deps.prod`, etc.).
+
+---
+
+> Make sure the dependency file is properly formatted, with one plugin name per line and optional `#` comments.
+
+Example `gmp-dependencies`:
+
+```txt
+# Required GPM plugins
+form
+login
+admin
+```
 
 ---
 
 > **Production Notes:** \
-> For production, avoid using `compose.override.yaml`. Instead, define only the necessary services and configurations suitable for your deployment environment. \
+> For production, avoid using `compose.override.yaml`.  
+> Instead, define only the necessary services and configurations suitable for your deployment environment.  
 > **Example:** `docker compose -f compose.yaml -f compose.prod.yaml up` 
 
 ---

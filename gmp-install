@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Default config file
+CONF_FILE="${1:-./gmp-dependencies.conf}"
+
+# Check if file exists
+if [ ! -f "$CONF_FILE" ]; then
+  echo "Config file not found: $CONF_FILE"
+  exit 1
+fi
+
+echo "Installing dependencies from $CONF_FILE..."
+
+while IFS= read -r dependency || [ -n "$dependency" ];  do
+  # Skip empty lines and comments
+  if [ -n "$dependency" ] && [[ ! "$dependency" =~ ^# ]]; then
+    echo "Installing $dependency..."
+    docker compose exec -T php bin/gpm install "$dependency" --no-interaction
+  fi
+done < "$CONF_FILE"
+
+echo "All dependencies installed."
